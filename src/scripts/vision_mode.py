@@ -63,26 +63,19 @@ def draw_text(canvas, text, color, previous_text_y, offset, canvas_center_x) -> 
         height_of_character = font.metrics("linespace")
         max_text_length_per_line = canvas_center_x * 2 // width_per_character
 
-    # Create a gray rectangle as the background
+    # Remove the gray rectangle as the background
     text_width = int(width_per_character * len(text))
     if text_width > canvas_center_x * 2:
         text_width = canvas_center_x * 2
     number_of_lines = math.ceil(len(text) / max_text_length_per_line)
     text_height = int(height_of_character * number_of_lines)
 
-    dark_gray_color = "#111111"
-    canvas.create_rectangle(
-        canvas_center_x - text_width // 2,  # x1
-        previous_text_y - offset - text_height,  # y1
-        canvas_center_x + text_width // 2,  # x2
-        previous_text_y - offset,  # y2
-        fill=dark_gray_color,
-        outline="",
-    )
+    # Add underline to text
     canvas.create_text(
-        canvas_center_x, previous_text_y - offset, text=text, anchor=tk.S, font=("Courier New", font_size), fill=color, width=text_width
+        canvas_center_x, previous_text_y - offset, text=text, anchor=tk.S, font=("Courier New", font_size, "underline"), fill=color, width=text_width
     )
     return int(previous_text_y - offset - text_height)
+
 
 
 def reset_canvas(root, canvas):
